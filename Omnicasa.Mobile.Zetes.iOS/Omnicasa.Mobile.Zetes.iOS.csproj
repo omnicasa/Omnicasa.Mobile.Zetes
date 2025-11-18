@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0-ios</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>true</ImplicitUsings>
+        <IsBindingProject>true</IsBindingProject>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <NoBindingEmbedding>false</NoBindingEmbedding>
+        <WarningAsError>false</WarningAsError>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+        <PackageId>Omnicasa.Mobile.Zetes.iOS</PackageId>
+        <Version>0.0.0.1</Version>
+        <Authors>HoangQuach</Authors>
+        <Company>Omnicasa</Company>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <RepositoryUrl>https://github.com/omnicasa/Omnicasa.Mobile.Zetes</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ObjcBindingApiDefinition Include="ApiDefinition.cs"/>
+        <ObjcBindingCoreSource Include="StructsAndEnums.cs"/>
+    </ItemGroup>
+</Project>
