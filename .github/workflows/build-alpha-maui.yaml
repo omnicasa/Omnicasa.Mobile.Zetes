@@ -19,7 +19,7 @@ jobs:
       - name: Install .NET tools
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 8.0.400
+          dotnet-version: 8.0.415
           
       - name: Install .NET MAUI
         run: dotnet workload install maui 
