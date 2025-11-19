@@ -19,7 +19,7 @@ jobs:
       - name: Install .NET tools
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 8.0.400
+          dotnet-version: 8.0.415
           
       - name: Install .NET MAUI
         run: dotnet workload install maui 
@@ -35,13 +35,13 @@ jobs:
       - name: Set Omnicasa.Mobile.Zetes.iOS.csproj version
         uses: Thundernerd/dotnet-project-version-updater@v1.2
         with:
-          file: "Omnicasa.Mobile.BlinkID.Zetes.iOS/Omnicasa.Mobile.Zetes.iOS.csproj"
+          file: "Omnicasa.Mobile.Zetes.iOS/Omnicasa.Mobile.Zetes.iOS.csproj"
           version: ${{ env.VERSION }}
 
       - name: Set Omnicasa.Mobile.Zetes.Droid.csproj version
         uses: Thundernerd/dotnet-project-version-updater@v1.2
         with:
-          file: "Omnicasa.Mobile.BlinkID.Zetes.Droid/Omnicasa.Mobile.Zetes.Droid.csproj"
+          file: "Omnicasa.Mobile.Zetes.Droid/Omnicasa.Mobile.Zetes.Droid.csproj"
           version: ${{ env.VERSION }} 
         
       - name: iOS Publish Omnicasa.Mobile.Zetes.iOS on version change
