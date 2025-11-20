@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using BE.Zetes.Zseidlib;
 using Omnicasa.Mobile.Zetes.Standard;
 
@@ -7,6 +7,11 @@ namespace Omnicasa.Mobile.Zetes;
 /// <summary>CardParser.</summary>
 public static class CardParser
 {
+    /// <summary>
+    /// Parse.
+    /// </summary>
+    /// <param name="zsBleIdLib">ZsEidLib.</param>
+    /// <returns>EidCardInfo.</returns>
     public static EidCardInfo Parse(this ZsEidLib zsBleIdLib)
     {
         var cardInfor = new EidCardInfo();
@@ -33,7 +38,7 @@ public static class CardParser
         cardInfor.ThirdName = identity.OtherName;
         cardInfor.Picture = zsBleIdLib.GetPicture();
 
-        DateTime dateTime = DateTime.MinValue;
+        DateTime dateTime;
         var birthday = string.Join(
             " ",
             identity.BirthDate.Split(new char[0], StringSplitOptions.RemoveEmptyEntries).AsEnumerable()
@@ -150,18 +155,6 @@ public static class CardParser
         DateTime dateTime = DateTime.MinValue;
         try
         {
-            try
-            {
-#pragma warning disable S6602
-                var cardCulture = System.Globalization.CultureInfo
-                    .GetCultures(System.Globalization.CultureTypes.AllCultures)
-                    .FirstOrDefault(ci => DateTime.TryParseExact(birthday, "dd MMM yyyy", ci, System.Globalization.DateTimeStyles.None, out dateTime));
-#pragma warning restore S6602
-            }
-            catch
-            {
-            }
-
             if (dateTime.Year <= 1900 && !string.IsNullOrEmpty(birthday))
             {
                 dateTime = TryParseBirday(birthday);

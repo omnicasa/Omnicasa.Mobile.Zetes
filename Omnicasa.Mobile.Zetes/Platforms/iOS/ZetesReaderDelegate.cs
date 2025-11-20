@@ -1,4 +1,4 @@
-using Omnicasa.Mobile.Zetes.iOS;
+﻿using Omnicasa.Mobile.Zetes.iOS;
 
 namespace Omnicasa.Mobile.Zetes;
 

@@ -1,4 +1,4 @@
-namespace Omnicasa.Mobile.Zetes;
+﻿namespace Omnicasa.Mobile.Zetes;
 
 /// <summary>IZetesCallback.</summary>
 internal interface IZetesCallback
