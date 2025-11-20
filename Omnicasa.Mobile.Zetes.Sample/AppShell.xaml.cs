@@ -1,4 +1,6 @@
-﻿namespace Omnicasa.Mobile.Zetes.Sample;
+﻿using Microsoft.Maui.Controls;
+
+namespace Omnicasa.Mobile.Zetes.Sample;
 
 public partial class AppShell : Shell
 {
