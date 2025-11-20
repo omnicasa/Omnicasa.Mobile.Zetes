@@ -28,5 +28,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Omnicasa needs permission to your Bluetooth to easy import contact detail or take the measurements of the property</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Omnicasa needs permission to your Bluetooth to easy import contact detail or take the measurements of the property</string>
 </dict>
 </plist>

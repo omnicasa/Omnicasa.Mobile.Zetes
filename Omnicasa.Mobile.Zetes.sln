@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{7461B0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnicasa.Mobile.Zetes.Sample", "Omnicasa.Mobile.Zetes.Sample\Omnicasa.Mobile.Zetes.Sample.csproj", "{423DA6EF-8253-418F-8F1F-A5D16B57136D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omnicasa.Mobile.Zetes.Standard", "Omnicasa.Mobile.Zetes.Standard\Omnicasa.Mobile.Zetes.Standard.csproj", "{55842E0F-BABB-4924-8622-829CA95E14F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{423DA6EF-8253-418F-8F1F-A5D16B57136D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{423DA6EF-8253-418F-8F1F-A5D16B57136D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{423DA6EF-8253-418F-8F1F-A5D16B57136D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55842E0F-BABB-4924-8622-829CA95E14F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55842E0F-BABB-4924-8622-829CA95E14F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55842E0F-BABB-4924-8622-829CA95E14F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55842E0F-BABB-4924-8622-829CA95E14F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{423DA6EF-8253-418F-8F1F-A5D16B57136D} = {7461B070-02D4-46F5-B23E-8D7399FF9F38}
