@@ -1,63 +1,9 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Omnicasa.Mobile.Zetes.Standard;
 
 namespace Omnicasa.Mobile.Zetes.iOS;
-
-/// <summary>IZetesCallback.</summary>
-internal interface IZetesCallback
-{
-    /// <summary>
-    /// CardDidChange.
-    /// </summary>
-    /// <param name="attached">bool.</param>
-    void CardDidChange(bool attached);
-
-    /// <summary>
-    /// ReaderDidChange.
-    /// </summary>
-    /// <param name="attached">bool.</param>
-    void ReaderDidChange(bool attached);
-
-    /// <summary>
-    /// ReaderDidChange.
-    /// </summary>
-    /// <param name="reader">string.</param>
-    void DidDetectReader(string reader);
-}
-
-/// <summary>ZetesReaderDelegate.</summary>
-internal class ZetesReaderDelegate : ReaderDelegate
-{
-    private IZetesCallback callback;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ZetesReaderDelegate"/> class.
-    /// </summary>
-    /// <param name="callback">IZetesCallback.</param>
-    public ZetesReaderDelegate(IZetesCallback callback)
-    {
-        this.callback = callback;
-    }
-
-    /// <inheritdoc/>
-    public override void ReaderDidChange(bool attached)
-    {
-        callback.ReaderDidChange(attached);
-    }
-
-    /// <inheritdoc/>
-    public override void CardDidChange(bool attached)
-    {
-        callback.CardDidChange(attached);
-    }
-
-    /// <inheritdoc/>
-    public override void DidDetectReader(string reader)
-    {
-        callback.DidDetectReader(reader);
-    }
-}
 
 /// <summary>ZetesService.</summary>
 public class ZetesService : IZetesService, IZetesCallback

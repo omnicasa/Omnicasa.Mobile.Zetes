@@ -3,7 +3,9 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Android.OS;
 using BE.Zetes.Zseidlib;
+using BE.Zetes.Zseidlib.Domain;
 using BE.Zetes.Zseidlib.Reader;
+using Omnicasa.Mobile.Zetes.Standard;
 
 namespace Omnicasa.Mobile.Zetes.Droid;
 
@@ -165,6 +167,37 @@ public class ZetesService :
     public void OnCardInserted()
     {
         logs.OnNext("Card inserted");
+        try
+        {
+            logs.OnNext("Card changes detected.");
+            var rc = zsBleIdLib.PowerOnCard();
+            if (rc != ReturnCode.Ok)
+            {
+                throw new Exception(rc?.Name());
+            }
+
+            var identity = zsBleIdLib.Identity;
+            if (identity == null)
+            {
+                throw new Exception("NOK");
+            }
+
+            events.OnNext(new ZetesEvent()
+            {
+                CardInfo = zsBleIdLib.Parse(),
+                State = ZetesState.CardDetected,
+            });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.GetType().ToString());
+            Console.WriteLine(e.StackTrace);
+            events.OnNext(new ZetesEvent()
+            {
+                Exception = e,
+                State = ZetesState.Error,
+            });
+        }
     }
 
     /// <inheritdoc/>
