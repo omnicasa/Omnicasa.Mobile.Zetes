@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using Microsoft.Maui.Controls;
+using ReactiveUI;
 
 namespace Omnicasa.Mobile.Zetes.Sample;
 
@@ -21,9 +22,11 @@ public partial class MainPage : ContentPage
         #endif
 
         zetesService.Logs()
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Subscribe(mes =>
             {
                 Console.WriteLine($"Zetes logging: {mes}");
+                Label.Text = mes;
             });
 
         zetesService.Scanning()

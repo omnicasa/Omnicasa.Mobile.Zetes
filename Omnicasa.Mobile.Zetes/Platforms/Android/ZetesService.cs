@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Android.OS;
 using BE.Zetes.Zseidlib;
 using BE.Zetes.Zseidlib.Reader;
-using Java.Interop;
 
 namespace Omnicasa.Mobile.Zetes.Droid;
 
@@ -85,6 +82,7 @@ public class ZetesService :
             {
                 if (isSupportDevice)
                 {
+                    zsBleIdLib.UnregisterAllEventListeners();
                     zsBleIdLib?.CloseSDK();
                     zsBleIdLib?.Dispose();
                 }
@@ -162,9 +160,6 @@ public class ZetesService :
             return false;
         }
     }
-
-    /// <inheritdoc/>
-    public IntPtr Handle { get; }
 
     /// <inheritdoc/>
     public void OnCardInserted()
