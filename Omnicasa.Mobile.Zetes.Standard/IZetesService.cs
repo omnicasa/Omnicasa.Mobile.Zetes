@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Omnicasa.Mobile.Zetes;
+namespace Omnicasa.Mobile.Zetes.Standard;
 
 /// <summary>
 /// IZetesService.

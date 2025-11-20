@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Omnicasa.Mobile.Zetes;
+namespace Omnicasa.Mobile.Zetes.Standard;
 
 /// <inheritdoc/>
 public class EidCardInfo

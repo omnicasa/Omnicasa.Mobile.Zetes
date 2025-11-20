@@ -1,4 +1,4 @@
-﻿namespace Omnicasa.Mobile.Zetes;
+﻿namespace Omnicasa.Mobile.Zetes.Standard;
 
 /// <summary>ZetesState.</summary>
 public enum ZetesState
