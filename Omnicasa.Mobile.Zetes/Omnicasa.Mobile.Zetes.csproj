@@ -5,13 +5,13 @@
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">13.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 
         <PackageId>Omnicasa.Mobile.Zetes</PackageId>
-        <Version>1.0.0</Version>
+        <Version>0.0.0.1</Version>
         <Authors>HoangQuach</Authors>
         <Company>Omnicasa</Company>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,18 +22,17 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-      <PackageReference Include="Omnicasa.Mobile.Zetes.Droid" Version="0.0.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Omnicasa.Analyzers" Version="2024.5.17.13" />
+        <PackageReference Include="System.Reactive" Version="6.0.0" />
+        <PackageReference Include="Omnicasa.Mobile.Zetes.Standard" Version="0.0.0.1" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
-      <PackageReference Include="Omnicasa.Mobile.Zetes.iOS" Version="0.0.0.1" />
+      <PackageReference Include="Omnicasa.Mobile.Zetes.iOS" Version="2025.11.19.9-alpha" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Platforms\Android\" />
-      <Folder Include="Platforms\iOS\" />
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+      <PackageReference Include="Omnicasa.Mobile.Zetes.Droid" Version="2025.11.19.9-alpha" />
     </ItemGroup>
 </Project>
