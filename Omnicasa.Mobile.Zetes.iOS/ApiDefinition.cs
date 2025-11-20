@@ -284,7 +284,7 @@ namespace Omnicasa.Mobile.Zetes.iOS
 
 	// @interface Reader : NSObject <ReaderProtocol>
 	[BaseType (typeof(NSObject))]
-	interface Reader
+	interface Reader : ReaderProtocol
 	{
 		// -(id)initWithPreferredReader:(NSString *)name OEM:(NSString *)oemVersion;
 		[Export ("initWithPreferredReader:OEM:")]
