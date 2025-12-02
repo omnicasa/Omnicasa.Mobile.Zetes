@@ -1,17 +1,14 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using Omnicasa.Mobile.Zetes.Standard;
 
 namespace Omnicasa.Mobile.Zetes.iOS;
 
 /// <summary>ZetesService.</summary>
-public class ZetesService : IZetesService, IZetesCallback
+public class ZetesService : AbstractService, IZetesService, IZetesCallback
 {
     private Reader eidReader;
     private ZetesReaderDelegate zetesReaderDelegate;
-    private BehaviorSubject<string> logs = new BehaviorSubject<string>("Initializing..");
-    private BehaviorSubject<ZetesEvent> events = new BehaviorSubject<ZetesEvent>(null);
 
     /// <inheritdoc/>
     public void Dispose()
@@ -101,7 +98,7 @@ public class ZetesService : IZetesService, IZetesCallback
     /// <inheritdoc/>
     public IObservable<ZetesEvent> Scanning()
     {
-        return events;
+        return ObsEvents;
     }
 
     /// <inheritdoc/>
@@ -113,7 +110,7 @@ public class ZetesService : IZetesService, IZetesCallback
     /// <inheritdoc/>
     public IObservable<string> Logs()
     {
-        return logs;
+        return ObsLogs;
     }
 
     /// <inheritdoc/>
@@ -121,7 +118,7 @@ public class ZetesService : IZetesService, IZetesCallback
     {
         try
         {
-            logs.OnNext("Card changes detected.");
+            ObsLogs.OnNext("Card changes detected.");
             var codeId = eidReader.Open;
             if (codeId == -1)
             {
@@ -148,7 +145,7 @@ public class ZetesService : IZetesService, IZetesCallback
                 throw new EIdAdapterNotSupportException();
             }
 
-            events.OnNext(new ZetesEvent()
+            ObsEvents.OnNext(new ZetesEvent()
             {
                 CardInfo = eidReader.Parse(),
                 State = ZetesState.CardDetected,
@@ -158,7 +155,7 @@ public class ZetesService : IZetesService, IZetesCallback
         {
             Console.WriteLine(e.GetType().ToString());
             Console.WriteLine(e.StackTrace);
-            events.OnNext(new ZetesEvent()
+            ObsEvents.OnNext(new ZetesEvent()
             {
                 Exception = e,
                 State = ZetesState.Error,
@@ -169,12 +166,20 @@ public class ZetesService : IZetesService, IZetesCallback
     /// <inheritdoc/>
     public void ReaderDidChange(bool attached)
     {
-        logs.OnNext("Card reader is now ready or unavailable");
+        ObsLogs.OnNext("Card reader is now ready or unavailable");
+        ObsEvents.OnNext(new ZetesEvent()
+        {
+            State = ZetesState.CardReaderUnavailable,
+        });
     }
 
     /// <inheritdoc/>
     public void DidDetectReader(string reader)
     {
-        logs.OnNext("Card reader detected and ready to use");
+        ObsLogs.OnNext("Card reader detected and ready to use");
+        ObsEvents.OnNext(new ZetesEvent()
+        {
+            State = ZetesState.CardReaderReady,
+        });
     }
 }
