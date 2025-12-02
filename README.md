@@ -31,6 +31,18 @@ This library provides a cross-platform .NET MAUI wrapper around the native Zetes
 - **Android**: Android API 26 (Android 8.0) or later
 - Compatible Zetes eID card reader (BLE or wired)
 
+### Supported Readers
+
+The library supports the following Zetes eID card readers:
+
+- **BLE Readers**: Bluetooth Low Energy card readers (e.g., FT_ series)
+- **Wired Readers**: 
+  - Zetes Feitian bR301 FC4
+  - iR301 readers
+  - BR301 readers
+
+Note: The default configuration uses BLE readers. For wired readers like the bR301 FC4, you may need to modify the reader type in the implementation (see Configuration section).
+
 ## Installation
 
 ### Install .NET MAUI Workload
@@ -341,6 +353,53 @@ For Android 12+ (API 31+), you may need to add:
     android:usesPermissionFlags="neverForLocation" />
 ```
 
+## Reader Configuration
+
+The library supports different reader types. By default, it's configured to support **both BLE and wired readers** (mixed types) using an empty string `""` as the reader type.
+
+### Default Configuration (Mixed Types)
+
+The default configuration uses an empty string `""` which allows the SDK to scan for both BLE and wired readers. However, the behavior can be somewhat unpredictable:
+
+- If a BT3/wired reader is powered and connected at the time of `StartScan()`, it will connect to that reader first
+- If no wired reader is present, it will scan for BLE readers
+- After a disconnect, it will scan for both types
+
+### For Specific Reader Types
+
+If you want to restrict scanning to a specific reader type, modify the `ZetesService` implementation:
+
+**iOS** (`Omnicasa.Mobile.Zetes/Platforms/iOS/ZetesService.cs`):
+
+```csharp
+// For BLE readers only:
+eidReader = new Reader("FT_ANY", string.Empty, "BLE");
+
+// For wired readers only (bR301 FC4, iR301, BR301):
+eidReader = new Reader("FT_ANY", string.Empty, "IR301_AND_BR301");
+
+// For both types (default, but unpredictable behavior):
+eidReader = new Reader("FT_ANY", string.Empty, string.Empty);
+```
+
+**Android** (`Omnicasa.Mobile.Zetes/Platforms/Android/ZetesService.cs`):
+
+Similar changes may be needed in the Android implementation.
+
+### Reader Type Options
+
+- `""` (empty string) - **Default**: Scans for both BLE and wired readers (mixed types)
+  - Note: Behavior can be unpredictable - connects to BT3 if powered, otherwise scans BLE, then both after disconnect
+- `"BLE"` - Bluetooth Low Energy readers only
+- `"IR301_AND_BR301"` - Wired readers only (bR301 FC4, iR301, BR301)
+
+### Notes for bR301 FC4
+
+- The bR301 FC4 is a wired USB reader, so Bluetooth permissions are not required
+- Ensure the reader is properly connected via USB/Lightning adapter
+- The reader should be recognized by the system before starting the scan
+- For best results with bR301 FC4, use `"IR301_AND_BR301"` as the reader type
+
 ## Troubleshooting
 
 ### "ignoring reader" Messages
@@ -349,10 +408,24 @@ If you see messages like `ignoring reader: FT_00A050181A2F (-59 < -57)`, this is
 
 ### Reader Not Detected
 
+**For BLE Readers:**
 1. Ensure the reader is powered on
 2. Check Bluetooth is enabled on the device
 3. Verify app has Bluetooth permissions
 4. Try using `"FT_ANY"` as the preferred reader name (default in the library)
+
+**For Wired Readers (bR301 FC4, etc.):**
+1. Ensure the reader is properly connected via USB/Lightning adapter
+2. Verify the reader is recognized by the system (check in Settings)
+3. For best results, use `"IR301_AND_BR301"` as the reader type in the configuration (or use `""` for mixed types)
+4. Try disconnecting and reconnecting the reader
+5. Check if the reader requires drivers or additional setup
+
+**For Mixed Types (Both BLE and Wired):**
+1. The default configuration (`""`) supports both types, but behavior may be unpredictable
+2. The SDK will prioritize wired readers if they're connected and powered
+3. If you need reliable mixed-type support, consider creating separate Reader instances for each type
+4. For predictable behavior, specify the exact reader type you want to use
 
 ### Build Errors
 
