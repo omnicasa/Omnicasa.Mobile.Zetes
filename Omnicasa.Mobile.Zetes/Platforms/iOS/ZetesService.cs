@@ -28,9 +28,11 @@ public class ZetesService : IZetesService, IZetesCallback
             {
                 if (eidReader == null)
                 {
-                    // Match demo approach: use "FT_ANY" to scan for any reader, with BLE type
-                    // Options: "BLE", "IR301_AND_BR301", or "" for undefined
-                    eidReader = new Reader("FT_ANY", string.Empty, "BLE");
+                    // Use empty string "" to support both BLE and wired readers (mixed types)
+                    // Options: "BLE" (BLE only), "IR301_AND_BR301" (wired only), or "" (both types)
+                    // Note: Using "" may have unpredictable behavior - it will connect to BT3 if powered,
+                    // otherwise scan for BLE, and after disconnect will scan for both types
+                    eidReader = new Reader("FT_ANY", string.Empty, string.Empty);
                 }
 
                 if (zetesReaderDelegate == null)
