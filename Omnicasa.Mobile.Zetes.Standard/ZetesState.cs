@@ -7,5 +7,8 @@ public enum ZetesState
     Stopped,
     Starting,
     CardDetected,
+    CardRemoved,
+    CardReaderReady,
+    CardReaderUnavailable,
     Error,
 }
