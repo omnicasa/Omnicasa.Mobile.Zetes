@@ -1,6 +1,5 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using Android.OS;
 using BE.Zetes.Zseidlib;
 using BE.Zetes.Zseidlib.Domain;
@@ -13,11 +12,10 @@ namespace Omnicasa.Mobile.Zetes.Droid;
 /// ZetesService.
 /// </summary>
 public class ZetesService :
+    AbstractService,
     IZetesService,
     IDroidZetesCallback
 {
-    private BehaviorSubject<string> logs = new BehaviorSubject<string>("Initializing..");
-    private BehaviorSubject<ZetesEvent> events = new BehaviorSubject<ZetesEvent>(null);
     private ZsEidLib zsBleIdLib;
     private bool isSupportDevice;
 
@@ -38,11 +36,11 @@ public class ZetesService :
 
                     if (!zsBleIdLib.IsValidReader)
                     {
-                        logs.OnNext("Please connect BlueTooth Reader (BLE)...");
+                        ObsLogs.OnNext("Please connect BlueTooth Reader (BLE)...");
                     }
                     else if (zsBleIdLib.CardStatus == CardStatus.CardAbsent)
                     {
-                        logs.OnNext("Please insert eID..");
+                        ObsLogs.OnNext("Please insert eID..");
                     }
 
                     o.OnNext(new ZetesEvent()
@@ -113,7 +111,7 @@ public class ZetesService :
     /// <inheritdoc/>
     public IObservable<ZetesEvent> Scanning()
     {
-        return events;
+        return ObsEvents;
     }
 
     /// <inheritdoc/>
@@ -140,7 +138,7 @@ public class ZetesService :
     /// <inheritdoc/>
     public IObservable<string> Logs()
     {
-        return logs;
+        return ObsLogs;
     }
 
     /// <inheritdoc/>
@@ -166,10 +164,10 @@ public class ZetesService :
     /// <inheritdoc/>
     public void OnCardInserted()
     {
-        logs.OnNext("Card inserted");
+        ObsLogs.OnNext("Card inserted");
         try
         {
-            logs.OnNext("Card changes detected.");
+            ObsLogs.OnNext("Card changes detected.");
             var rc = zsBleIdLib.PowerOnCard();
             if (rc != ReturnCode.Ok)
             {
@@ -182,7 +180,7 @@ public class ZetesService :
                 throw new Exception("NOK");
             }
 
-            events.OnNext(new ZetesEvent()
+            ObsEvents.OnNext(new ZetesEvent()
             {
                 CardInfo = zsBleIdLib.Parse(),
                 State = ZetesState.CardDetected,
@@ -192,7 +190,7 @@ public class ZetesService :
         {
             Console.WriteLine(e.GetType().ToString());
             Console.WriteLine(e.StackTrace);
-            events.OnNext(new ZetesEvent()
+            ObsEvents.OnNext(new ZetesEvent()
             {
                 Exception = e,
                 State = ZetesState.Error,
@@ -203,18 +201,30 @@ public class ZetesService :
     /// <inheritdoc/>
     public void OnCardRemoved()
     {
-        logs.OnNext("Card removed");
+        ObsLogs.OnNext("Card removed");
+        ObsEvents.OnNext(new ZetesEvent()
+        {
+            State = ZetesState.CardRemoved,
+        });
     }
 
     /// <inheritdoc/>
     public void OnReaderConnected(string p0)
     {
-        logs.OnNext("Card reader connected");
+        ObsLogs.OnNext("Card reader connected");
+        ObsEvents.OnNext(new ZetesEvent()
+        {
+            State = ZetesState.CardReaderReady,
+        });
     }
 
     /// <inheritdoc/>
     public void OnReaderDisconnected(string p0)
     {
-        logs.OnNext("Card reader disconnected");
+        ObsLogs.OnNext("Card reader disconnected");
+        ObsEvents.OnNext(new ZetesEvent()
+        {
+            State = ZetesState.CardReaderUnavailable,
+        });
     }
 }

@@ -55,10 +55,26 @@ dotnet workload install maui
 
 The solution consists of multiple NuGet packages:
 
-1. **[Omnicasa.Mobile.Zetes.Standard](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Standard/)** - Core interfaces and models (.NET Standard 2.0)
-2. **[Omnicasa.Mobile.Zetes](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes/)** - Main MAUI library
-3. **[Omnicasa.Mobile.Zetes.iOS](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.iOS/)** - iOS native bindings
-4. **[Omnicasa.Mobile.Zetes.Droid](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Droid/)** - Android native bindings
+1. **[Omnicasa.Mobile.Zetes.Standard](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Standard/)**  
+   [![NuGet Version](https://img.shields.io/nuget/v/Omnicasa.Mobile.Zetes.Standard.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Standard/)  
+   [![NuGet Downloads](https://img.shields.io/nuget/dt/Omnicasa.Mobile.Zetes.Standard.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Standard/)  
+   _Core interfaces and models (.NET Standard 2.0)_
+
+2. **[Omnicasa.Mobile.Zetes](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes/)**  
+   [![NuGet Version](https://img.shields.io/nuget/v/Omnicasa.Mobile.Zetes.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes/)  
+   [![NuGet Downloads](https://img.shields.io/nuget/dt/Omnicasa.Mobile.Zetes.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes/)  
+   _Main MAUI library_
+
+3. **[Omnicasa.Mobile.Zetes.iOS](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.iOS/)**  
+   [![NuGet Version](https://img.shields.io/nuget/v/Omnicasa.Mobile.Zetes.iOS.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.iOS/)  
+   [![NuGet Downloads](https://img.shields.io/nuget/dt/Omnicasa.Mobile.Zetes.iOS.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.iOS/)  
+   _iOS native bindings_
+
+4. **[Omnicasa.Mobile.Zetes.Droid](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Droid/)**  
+   [![NuGet Version](https://img.shields.io/nuget/v/Omnicasa.Mobile.Zetes.Droid.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Droid/)  
+   [![NuGet Downloads](https://img.shields.io/nuget/dt/Omnicasa.Mobile.Zetes.Droid.svg)](https://www.nuget.org/packages/Omnicasa.Mobile.Zetes.Droid/)  
+   _Android native bindings_
+
 
 Add the main package to your .NET MAUI project:
 
